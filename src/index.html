@@ -55,13 +55,13 @@
             <div class="columns">
                 <div class="column">
                     <div class="box">
-                        <h2 class="sk-text-center sk-text-bold subtitle sk-mb-1">从本机查询</h2>
-                        <p class="sk-text-center sk-text-small">数据来自 WebRTC</p>
+                        <h2 class="sk-text-center sk-text-bold subtitle sk-mb-1">从国内查询</h2>
+                        <p class="sk-text-center sk-text-small">数据来自 cf-ns.com</p>
                         <hr class="sk-my-2">
                         <div class="ip-body">
                             <div class="sk-text-center">
-                                <p id="ip-webrtc"></p>
-                                <p id="ip-webrtc-geo" class="sk-text-small"></p>
+                                <p id="ip-cfns"></p>
+                                <p id="ip-cfns-geo" class="sk-text-small"></p>
                             </div>
                         </div>
                     </div>
@@ -69,11 +69,12 @@
                 <div class="column">
                     <div class="box">
                         <h2 class="sk-text-center sk-text-bold subtitle sk-mb-1">从国内查询</h2>
-                        <p class="sk-text-center sk-text-small">数据来自 IPIP.net</p>
+                        <p class="sk-text-center sk-text-small">数据来自 speedtest.cn</p>
                         <hr class="sk-my-2">
                         <div class="ip-body">
                             <div class="sk-text-center">
-                                <div id="ip-ipipnet"></div>
+                                <p id="ip-speedtestcn"></p>
+                                <p id="ip-speedtestcn-geo" class="sk-text-small"></p>
                             </div>
                         </div>
                     </div>
@@ -81,12 +82,12 @@
                 <div class="column">
                     <div class="box">
                         <h2 class="sk-text-center sk-text-bold subtitle sk-mb-1">从国内查询</h2>
-                        <p class="sk-text-center sk-text-small">数据来自 搜狐 + Moe IP</p>
+                        <p class="sk-text-center sk-text-small">数据来自 IP138</p>
                         <hr class="sk-my-2">
                         <div class="ip-body">
                             <div class="sk-text-center">
-                                <p id="ip-sohu"></p>
-                                <p id="ip-sohu-geo" class="sk-text-small"></p>
+                                <p id="ip-138"></p>
+                                <p id="ip-138-geo" class="sk-text-small"></p>
                             </div>
                         </div>
                     </div>
@@ -100,8 +101,8 @@
                         <hr class="sk-my-2">
                         <div class="ip-body">
                             <div class="sk-text-center">
-                                <p id="ip-ipsb"></p>
-                                <p id="ip-ipsb-geo" class="sk-text-small"></p>
+                                <p id="ip-ipsbv4"></p>
+                                <p id="ip-ipsbv4-geo" class="sk-text-small"></p>
                             </div>
                         </div>
                     </div>
@@ -109,12 +110,12 @@
                 <div class="column">
                     <div class="box">
                         <h2 class="sk-text-center sk-text-bold subtitle sk-mb-1">从国外查询</h2>
-                        <p class="sk-text-center sk-text-small">数据来自 ipify + ipapi</p>
+                        <p class="sk-text-center sk-text-small">数据来自 IP.SB</p>
                         <hr class="sk-my-2">
                         <div class="ip-body">
                             <div class="sk-text-center">
-                                <p id="ip-ipify"></p>
-                                <p id="ip-ipify-geo" class="sk-text-small"></p>
+                                <p id="ip-ipsbv6"></p>
+                                <p id="ip-ipsbv6-geo" class="sk-text-small"></p>
                             </div>
                         </div>
                     </div>
@@ -122,12 +123,53 @@
                 <div class="column">
                     <div class="box">
                         <h2 class="sk-text-center sk-text-bold subtitle sk-mb-1">从国外查询</h2>
-                        <p class="sk-text-center sk-text-small">数据来自 ipapi</p>
+                        <p class="sk-text-center sk-text-small">数据来自 ipapi.co</p>
                         <hr class="sk-my-2">
                         <div class="ip-body">
                             <div class="sk-text-center">
                                 <p id="ip-ipapi"></p>
                                 <p id="ip-ipapi-geo" class="sk-text-small"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="columns">
+                <div class="column">
+                    <div class="box">
+                        <h2 class="sk-text-center sk-text-bold subtitle sk-mb-1">从国外查询</h2>
+                        <p class="sk-text-center sk-text-small">数据来自 ip.gs</p>
+                        <hr class="sk-my-2">
+                        <div class="ip-body">
+                            <div class="sk-text-center">
+                                <p id="ip-ipgs"></p>
+                                <p id="ip-ipgs-geo" class="sk-text-small"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="box">
+                        <h2 class="sk-text-center sk-text-bold subtitle sk-mb-1">从国外查询</h2>
+                        <p class="sk-text-center sk-text-small">数据来自 ipinfo.io</p>
+                        <hr class="sk-my-2">
+                        <div class="ip-body">
+                            <div class="sk-text-center">
+                                <p id="ip-ipinfo"></p>
+                                <p id="ip-ipinfo-geo" class="sk-text-small"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="box">
+                        <h2 class="sk-text-center sk-text-bold subtitle sk-mb-1">从国外查询</h2>
+                        <p class="sk-text-center sk-text-small">数据来自 MyIP</p>
+                        <hr class="sk-my-2">
+                        <div class="ip-body">
+                            <div class="sk-text-center">
+                                <p id="ip-myip"></p>
+                                <p id="ip-myip-geo" class="sk-text-small"></p>
                             </div>
                         </div>
                     </div>
@@ -189,13 +231,16 @@
     <script>
         HTTP.runcheck();
 
-        IP.getWebrtcIP()
-        IP.getIpipnetIP();
-        IP.getSohuIP();
+        IP.getCfnsIP()
+        IP.getSpeedtestcnIP();
+        IP.get138IP();
 
-        IP.getIpsbIP();
-        IP.getIpifyIP();
+        IP.getIpsbv4IP();
+        IP.getIpsbv6IP();
         IP.getIpapiIP();
+        IP.getIpgsIP();
+        IP.getIpinfoIP();
+        IP.getMyipIP()
     </script>
 </body>
 
