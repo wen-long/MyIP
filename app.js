@@ -1,1 +1,164 @@
-"use strict";function _slicedToArray(t,e){return _arrayWithHoles(t)||_iterableToArrayLimit(t,e)||_unsupportedIterableToArray(t,e)||_nonIterableRest()}function _nonIterableRest(){throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}function _unsupportedIterableToArray(t,e){if(t){if("string"==typeof t)return _arrayLikeToArray(t,e);var n=Object.prototype.toString.call(t).slice(8,-1);return"Object"===n&&t.constructor&&(n=t.constructor.name),"Map"===n||"Set"===n?Array.from(t):"Arguments"===n||/^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)?_arrayLikeToArray(t,e):void 0}}function _arrayLikeToArray(t,e){(null==e||e>t.length)&&(e=t.length);for(var n=0,o=new Array(e);n<e;n++)o[n]=t[n];return o}function _iterableToArrayLimit(t,e){if("undefined"!=typeof Symbol&&Symbol.iterator in Object(t)){var n=[],o=!0,r=!1,i=void 0;try{for(var a,c=t[Symbol.iterator]();!(o=(a=c.next()).done)&&(n.push(a.value),!e||n.length!==e);o=!0);}catch(t){r=!0,i=t}finally{try{o||null==c.return||c.return()}finally{if(r)throw i}}return n}}function _arrayWithHoles(t){if(Array.isArray(t))return t}var $$=document,random=parseInt(1e8*Math.random()),IP={get:function(t,e){return fetch(t,{method:"GET"}).then(function(t){return"text"===e?Promise.all([t.ok,t.status,t.text(),t.headers]):Promise.all([t.ok,t.status,t.json(),t.headers])}).then(function(t){var e=_slicedToArray(t,4),n=e[0],o=e[1],r=e[2],i=e[3];if(n)return{ok:n,status:o,data:r,headers:i};throw new Error(JSON.stringify(json.error))}).catch(function(t){throw t})},getJsonp:function(t){var e=document.createElement("script");e.src=t,document.head.appendChild(e)},parseIPMoeip:function(t,e){IP.get("https://ip.mcr.moe/?ip=".concat(t,"&unicode&z=").concat(random),"json").then(function(t){$$.getElementById(e).innerHTML="".concat(t.data.country," ").concat(t.data.area," ").concat(t.data.provider)})},parseIPIpapi:function(t,e){IP.get("https://ipapi.co/".concat(t,"/json?z=").concat(random),"json").then(function(t){$$.getElementById(e).innerHTML="".concat(t.data.country_name," ").concat(t.data.city," ").concat(t.data.org)})},getWebrtcIP:function(){window.RTCPeerConnection=window.RTCPeerConnection||window.mozRTCPeerConnection||window.webkitRTCPeerConnection;var n=new RTCPeerConnection({iceServers:[]}),o=function(){};n.createDataChannel(""),n.createOffer(n.setLocalDescription.bind(n),o),n.onicecandidate=function(t){try{if(t&&t.candidate&&t.candidate.candidate){var e=/([0-9]{1,3}(\.[0-9]{1,3}){3}|[a-f0-9]{1,4}(:[a-f0-9]{1,4}){7})/.exec(t.candidate.candidate)[1];$$.getElementById("ip-webrtc").innerHTML=e,n.onicecandidate=o,$$.getElementById("ip-webrtc-geo").innerHTML="WebRTC Leaked IP"}else $$.getElementById("ip-webrtc").innerHTML="N/A"}catch(t){$$.getElementById("ip-webrtc").innerHTML="N/A"}}},getIpipnetIP:function(){IP.get("https://myip.ipip.net/?z=".concat(random),"text").then(function(t){var e=t.data.replace("当前 IP：","").split(" 来自于：");$$.getElementById("ip-ipipnet").innerHTML='<p id="ip-ipipnet">'.concat(e[0],'</p><p class="sk-text-small" id="ip-ipipnet-geo">').concat(e[1],"</p>")})},getIpipnetIPSimple:function(){IP.get("https://myip.ipip.net/?z=".concat(random),"text").then(function(t){var e=t.data.replace("当前 IP：","").split(" 来自于：");$$.getElementById("ip-ipipnet").innerHTML="".concat(e[0]," ").concat(e[1])})},getSohuIP:function(){var t=document.createElement("script");t.src="https://pv.sohu.com/cityjson?ie=utf-8",t.onload=function(){"undefined"==typeof returnCitySN?console.log("Failed to load resource: pv.sohu.com"):($$.getElementById("ip-sohu").innerHTML=returnCitySN.cip,IP.parseIPMoeip(returnCitySN.cip,"ip-sohu-geo"))},document.head.appendChild(t)},getIpsbIP:function(){IP.get("https://api.ip.sb/geoip?z=".concat(random),"json").then(function(t){$$.getElementById("ip-ipsb").innerHTML=t.data.ip,$$.getElementById("ip-ipsb-geo").innerHTML="".concat(t.data.country," ").concat(t.data.city," ").concat(t.data.organization)})},getIpifyIP:function(){IP.get("https://api.ipify.org/?format=json&z=".concat(random),"json").then(function(t){return $$.getElementById("ip-ipify").innerHTML=t.data.ip,t.data.ip}).then(function(t){IP.parseIPIpapi(t,"ip-ipify-geo")}).catch(function(t){console.log("Failed to load resource: api.ipify.org")})},getIpapiIP:function(){IP.get("https://ipapi.co/json?z=".concat(random),"json").then(function(t){$$.getElementById("ip-ipapi").innerHTML=t.data.ip,IP.parseIPIpapi(t.data.ip,"ip-ipapi-geo")}).catch(function(t){console.log("Failed to load resource: ipapi.co")})}},HTTP={checker:function(t,e){var n=new Image,o=setTimeout(function(){n.onerror=n.onload=null,n.src="",$$.getElementById(e).innerHTML='<span class="sk-text-error">连接超时</span>'},6e3);n.onerror=function(){clearTimeout(o),$$.getElementById(e).innerHTML='<span class="sk-text-error">无法访问</span>'},n.onload=function(){clearTimeout(o),$$.getElementById(e).innerHTML='<span class="sk-text-success">连接正常</span>'},n.src="https://".concat(t,"/favicon.ico?").concat(+new Date)},runcheck:function(){HTTP.checker("www.baidu.com","http-baidu"),HTTP.checker("s1.music.126.net/style","http-163"),HTTP.checker("github.com","http-github"),HTTP.checker("www.youtube.com","http-youtube")}};
+const $$ = document;
+let random = parseInt(Math.random() * 100000000);
+let IP = {
+    get: (url, type) => fetch(url, { method: 'GET' })
+        .then((resp) => {
+            if (type === 'text')
+                return Promise.all([resp.ok, resp.status, resp.text(), resp.headers]);
+            else {
+                return Promise.all([resp.ok, resp.status, resp.json(), resp.headers]);
+            }
+        })
+        .then(([ok, status, data, headers]) => {
+            if (ok) {
+                let json = { ok, status, data, headers }
+                return json;
+            } else {
+                throw new Error(JSON.stringify(json.error));
+            }
+        }).catch(error => {
+            throw error;
+        }),
+    getJsonp: (url) => {
+        var script = document.createElement('script');
+        script.src = url
+        document.head.appendChild(script);
+    },
+    parseIPMoeip: (ip, elID) => {
+        IP.get(`https://ip.mcr.moe/?ip=${ip}&unicode&z=${random}`, 'json')
+            .then(resp => {
+                $$.getElementById(elID).innerHTML = `${resp.data.country} ${resp.data.area} ${resp.data.provider}`;
+            })
+    },
+    parseIPIpapi: (ip, elID) => {
+        IP.get(`https://ipapi.co/${ip}/json?z=${random}`, 'json')
+            .then(resp => {
+                $$.getElementById(elID).innerHTML = `${resp.data.country_name} ${resp.data.city} ${resp.data.org}`;
+            })
+    },
+    getMyipIP: function() {
+        IP.get(`https://api4.my-ip.io/ip.json?z=${random}`, 'json')
+            .then(resp => {
+                $$.getElementById('ip-myip').innerHTML = resp.data.ip;
+            })
+        IP.get(`https://api6.my-ip.io/ip.json?z=${random}`, 'json')
+            .then(resp => {
+                $$.getElementById('ip-myip-geo').innerHTML = resp.data.ip;
+            })
+    },
+
+    getSpeedtestcnIP: () => {
+        IP.get(`https://forge.speedtest.cn/api/location/info?z=${random}`, 'json')
+            .then(resp => {
+                $$.getElementById('ip-speedtestcn').innerHTML = resp.data.full_ip;
+                $$.getElementById('ip-speedtestcn-geo').innerHTML = `${resp.data.country} ${resp.data.city} ${resp.data.isp}`;
+            })
+    },
+    getIpinfoIP: () => {
+        IP.get(`https://ipinfo.io/json?z=${random}`, 'json')
+            .then(resp => {
+                $$.getElementById('ip-ipinfo').innerHTML = resp.data.ip;
+                $$.getElementById('ip-ipinfo-geo').innerHTML = `${resp.data.country} ${resp.data.city} ${resp.data.org}`;
+            })
+    },
+    getIpgsIP: () => {
+        IP.get(`https://ip.gs/json?z=${random}`, 'json')
+            .then(resp => {
+                $$.getElementById('ip-ipgs').innerHTML = resp.data.ip;
+                $$.getElementById('ip-ipgs-geo').innerHTML = `${resp.data.country} ${resp.data.city} ${resp.data.asn_org}`;
+            })
+    },
+    getIpipnetIPSimple: () => {
+        IP.get(`https://myip.ipip.net/?z=${random}`, 'text')
+        .then((resp) => {
+            let data = resp.data.replace('当前 IP：', '').split(' 来自于：');
+            $$.getElementById('ip-ipipnet').innerHTML = `${data[0]} ${data[1]}`;
+        });
+    },
+    getCfnsIP: () => {
+
+        IP.get(`https://cf-ns.com/cdn-cgi/trace?z=${random}`, 'text')
+        .then((resp) => {
+            prefix = 'ip='
+            titleStart = resp.data.indexOf(prefix)
+            titleEnd = resp.data.indexOf('ts=')
+            ip = resp.data.substr(titleStart+prefix.length, titleEnd-titleStart-prefix.length)
+            loc = resp.data.substr(titleStart+prefix.length)
+            $$.getElementById('ip-cfns').innerHTML = `${ip}`;
+        });
+
+    },
+    get138IP: () => {
+
+        IP.get(`https://2022.ip138.com?z=${random}`, 'text')
+        .then((resp) => {
+            prefix = '<title>您的IP地址是：'
+            titleStart = resp.data.indexOf(prefix)
+            titleEnd = resp.data.indexOf('</title>')
+            ip = resp.data.substr(titleStart+prefix.length, titleEnd-titleStart-prefix.length)
+            loc = resp.data.substr(titleStart+prefix.length)
+            locationPrefix = '来自：'
+            locationStart = loc.indexOf('来自：')
+            locationEnd = loc.indexOf('</p>')
+            loc = loc.substr(locationStart+locationPrefix.length, locationEnd-locationStart-locationPrefix.length)
+            $$.getElementById('ip-138').innerHTML = `${ip}`;
+            $$.getElementById('ip-138-geo').innerHTML = `${loc}`;
+        });
+
+    },
+    getIpsbv4IP: () => {
+        IP.get(`https://api-ipv4.ip.sb/geoip?z=${random}`, 'json')
+            .then(resp => {
+                $$.getElementById('ip-ipsbv4').innerHTML = resp.data.ip;
+                $$.getElementById('ip-ipsbv4-geo').innerHTML = `${resp.data.country} ${resp.data.city} ${resp.data.organization}`;
+            })
+    },
+
+    getIpsbv6IP: () => {
+        IP.get(`https://api-ipv6.ip.sb/geoip?z=${random}`, 'json')
+            .then(resp => {
+                $$.getElementById('ip-ipsbv6').innerHTML = resp.data.ip;
+                $$.getElementById('ip-ipsbv6-geo').innerHTML = `${resp.data.country} ${resp.data.city} ${resp.data.organization}`;
+            })
+    },
+
+    getIpapiIP: () => {
+        IP.get(`https://ipapi.co/json?z=${random}`, 'json')
+            .then(resp => {
+                $$.getElementById('ip-ipapi').innerHTML = resp.data.ip;
+                IP.parseIPIpapi(resp.data.ip, 'ip-ipapi-geo');
+            })
+            .catch(e => {
+                console.log('Failed to load resource: ipapi.co')
+            })
+    }
+};
+
+let HTTP = {
+    checker: (domain, cbElID) => {
+        let img = new Image;
+        let timeout = setTimeout(() => {
+            img.onerror = img.onload = null;
+            img.src = '';
+            $$.getElementById(cbElID).innerHTML = '<span class="sk-text-error">连接超时</span>'
+        }, 6000);
+
+        img.onerror = () => {
+            clearTimeout(timeout);
+            $$.getElementById(cbElID).innerHTML = '<span class="sk-text-error">无法访问</span>'
+        }
+
+        img.onload = () => {
+            clearTimeout(timeout);
+            $$.getElementById(cbElID).innerHTML = '<span class="sk-text-success">连接正常</span>'
+        }
+
+        img.src = `https://${domain}/favicon.ico?${+(new Date)}`
+    },
+    runcheck: () => {
+        HTTP.checker('www.baidu.com', 'http-baidu');
+        HTTP.checker('s1.music.126.net/style', 'http-163');
+        HTTP.checker('github.com', 'http-github');
+        HTTP.checker('www.youtube.com', 'http-youtube');
+    }
+};
