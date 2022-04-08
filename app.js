@@ -1,7 +1,7 @@
 const $$ = document;
 let random = parseInt(Math.random() * 100000000);
 let IP = {
-    get: (url, type) => fetch(url, { method: 'GET' })
+    get: (url, type) => fetch(url, { method: 'GET',referrerPolicy: "no-referrer" })
         .then((resp) => {
             if (type === 'text')
                 return Promise.all([resp.ok, resp.status, resp.text(), resp.headers]);
@@ -85,7 +85,14 @@ let IP = {
             ip = resp.data.substr(titleStart+prefix.length, titleEnd-titleStart-prefix.length)
             loc = resp.data.substr(titleStart+prefix.length)
             $$.getElementById('ip-cfns').innerHTML = `${ip}`;
+
+
+            IP.get(`https://pro.ip-api.com/json/${ip}?key=EEKS6bLi6D91G1p`, 'json')
+                .then(resp => {
+                    $$.getElementById('ip-cfns-geo').innerHTML = `${resp.data.country} ${resp.data.city} ${resp.data.isp}`;
+                })
         });
+
 
     },
     get138IP: () => {
